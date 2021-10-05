@@ -1,0 +1,80 @@
+.form {
+  width: 100%;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+
+  &__input {
+    max-width: 600px;
+    width: 100%;
+    padding: 10px;
+    font-size: 21px;
+    border: 2px solid #010101;
+    border-radius: 5px;
+
+    &::placeholder {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  &__btn {
+    max-width: 150px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    border: 2px solid #010101;
+    margin: 0 20px;
+    font-size: 21px;
+  }
+}
+
+.todos {
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    margin: 20px 0;
+    border-radius: 5px;
+    border: 2px solid #010101;
+    width: 100%;
+    max-width: 500px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__btn {
+    margin-left: auto;
+    position: relative;
+    background: none;
+    border: none;
+
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 2px;
+      background: #000;
+      left: 0;
+      top: 0;
+    }
+
+    &:before {
+      transform: rotate(45deg);
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
+
+  &__text {
+    padding: 0 10px;
+  }
+}
