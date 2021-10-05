@@ -1,52 +1,49 @@
-import {TodoInput} from "./TodoInput/TodoInput";
-import {Todo} from "../../store/types";
-import {TodoList} from "./TodoList/TodoList";
-import React, {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
-import {deleteTodos, fetchTodos, saveTodo} from "../../store/redusers/store";
+import { TodoInput } from "./TodoInput/TodoInput";
+import { Todo } from "../../store/types";
+import { TodoList } from "./TodoList/TodoList";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { deleteTodos, fetchTodos, saveTodo } from "../../store/redusers/store";
+import "./Todos.scss";
 
-interface TodosProps {
-    todos: Todo[];
+export interface TodosProps {
+  todos: Todo[];
 }
 
-export const Todos = ({todos}: TodosProps) => {
-    const [todo, setTodo] = useState('');
-    const dispatch = useDispatch();
+export const Todos = ({ todos }: TodosProps) => {
+  const [todo, setTodo] = useState("");
+  const dispatch = useDispatch();
 
-    const createTodo = (e: React.ChangeEvent<HTMLInputElement>) => setTodo(e.target.value);
+  useEffect(() => {
+    todoShow();
+  }, [dispatch]);
 
-    const postTodo = (todo: string) => {
-        dispatch(saveTodo(todo));
-    }
+  const createTodo = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setTodo(e.target.value);
 
-    const todoShow = () => {
-        dispatch(fetchTodos());
-    }
+  const postTodo = (todo: string) => {
+    dispatch(saveTodo(todo));
+  };
 
-    const deleteTodosId = (id: number) => {
-        dispatch(deleteTodos(id))
-    }
+  const todoShow = () => {
+    dispatch(fetchTodos());
+  };
 
-    const addTodos = (event: any) => {
-        event.preventDefault();
-        todo.trim() && postTodo(todo)
-        setTodo('');
-    }
+  const deleteTodosId = (id: number) => {
+    dispatch(deleteTodos(id));
+  };
 
-    useEffect(() => {
-        todoShow();
-    }, [dispatch]);
+  const addTodos = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    todo.trim() && postTodo(todo);
+    setTodo("");
+  };
 
-    return (
-        <div className="todos">
-            <h1 className="title-h1 title-h1--todos">Список задач</h1>
-            <TodoInput todos={todos}
-                       todo={todo}
-                       addTodos={addTodos}
-                       createTodo={createTodo}/>
-            <TodoList todos={todos}
-                      dltTodo={deleteTodosId}
-            />
-        </div>
-    )
-}
+  return (
+    <div className="todos">
+      <h1 className="title-h1 title-h1--todos">Список задач</h1>
+      <TodoInput todo={todo} addTodos={addTodos} createTodo={createTodo} />
+      <TodoList todos={todos} deleteTodosId={deleteTodosId} />
+    </div>
+  );
+};

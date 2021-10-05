@@ -1,13 +1,18 @@
-import {Button} from "../../../Ui/Button";
+import { Button } from "../../../Ui/Button";
+import { Todo } from "../../../../store/types";
 
-export const TodosItem = (props: any) => {
-    const {index, todo, id, dltTodo} = props;
-
-    return (
-        <li className="todos__item">
-            <span className="todos__num">{index}.</span>
-            <span className="todos__text">{todo}</span>
-            <Button handleClick={() => dltTodo(id)} className="todos__btn"/>
-        </li>
-    )
+interface itemProps extends Todo {
+  index: number;
+  deleteTodosId: any;
 }
+export const TodosItem = (props: itemProps) => {
+  const { index, text, id, deleteTodosId } = props;
+
+  return (
+    <li className="todos__item">
+      <span className="todos__num">{index}.</span>
+      <span className="todos__text">{text}</span>
+      <Button handleClick={() => deleteTodosId(id)} className="todos__btn" />
+    </li>
+  );
+};
