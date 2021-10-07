@@ -4,11 +4,12 @@ import { Todo } from "../../../store/types";
 
 export interface Items {
   todos: Todo[];
+  changeDone: any;
   deleteTodosId: any; // ?
 }
 
 export const TodoList = (props: Items) => {
-  const { todos, deleteTodosId } = props;
+  const { todos, deleteTodosId, changeDone } = props;
   return (
     <ul className="todos__list">
       {todos.map((item, index: number) => {
@@ -20,6 +21,7 @@ export const TodoList = (props: Items) => {
             id={item.id}
             done={item.done}
             deleteTodosId={deleteTodosId}
+            changeDone={changeDone}
           />
         );
       })}

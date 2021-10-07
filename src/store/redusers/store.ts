@@ -12,7 +12,7 @@ const apiUrl: string = "http://localhost:8000/todos/";
 
 const initialState: TodosSliceState = {
   todos: [],
-  loading: false,
+  loading: true,
 };
 
 export const todosSlice = createSlice({
@@ -31,6 +31,15 @@ export const todosSlice = createSlice({
       state.todos = state.todos.filter(({ id }) => id !== action.payload);
     },
 
+    toggleTodo: (state, action: PayloadAction<number>) => {
+      state.todos.map((todo) => {
+        if (todo.id === action.payload) {
+          todo.done = !todo.done;
+        }
+        return todo;
+      });
+    },
+
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
@@ -38,7 +47,8 @@ export const todosSlice = createSlice({
 });
 
 export const selectTodos = (state: AppState) => state.todos.todos; // получаю массив из стора прокидываю его в компонент
-export const { setTodo, getTodos, removeTodo, setLoading } = todosSlice.actions;
+export const { setTodo, getTodos, removeTodo, setLoading, toggleTodo } =
+  todosSlice.actions;
 
 export const saveTodo = (text: string) => async (dispatch: AppDispatch) => {
   try {
@@ -50,17 +60,24 @@ export const saveTodo = (text: string) => async (dispatch: AppDispatch) => {
   }
 };
 
+export const changeTodosIsDone =
+  (done: boolean, id: number) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.patch(apiUrl + id, { done });
+      dispatch(toggleTodo(response.data.id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 export const fetchTodos = () => async (dispatch: AppDispatch) => {
   try {
-    dispatch(setLoading(true));
-
     const { data } = await axios.get(apiUrl);
-
     dispatch(getTodos(data));
     dispatch(setLoading(false));
   } catch (error) {
     console.error(error);
-    dispatch(setLoading(false));
+    dispatch(setLoading(true));
   }
 };
 
