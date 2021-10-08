@@ -1,6 +1,17 @@
 import "./Input.scss";
+import React from "react";
 
-const Input = (props: any) => {
+interface itemProps {
+  className: string;
+  checked: boolean;
+  label?: string;
+  value?: string;
+  htmlFor: string;
+  type: string;
+  changeInput(e: React.ChangeEvent<HTMLInputElement>): void;
+}
+
+const Input = (props: itemProps) => {
   const { htmlFor, type, value, changeInput, label, checked, className } =
     props;
   const inputType = type || "text";

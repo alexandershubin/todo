@@ -30,7 +30,7 @@ export const Todos = ({ todos }: TodosProps) => {
     setTodo(e.target.value);
   };
 
-  const addTodos = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const addTodos = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     todo.trim() && dispatch(saveTodo(todo));
     setTodo("");

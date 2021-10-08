@@ -75,6 +75,17 @@ export const saveTodo = (text: string) => async (dispatch: AppDispatch) => {
   }
 };
 
+export const fetchTodos = () => async (dispatch: AppDispatch) => {
+  try {
+    const { data } = await axios.get(apiUrl);
+    dispatch(getTodos(data));
+    dispatch(setLoading(false));
+  } catch (error) {
+    console.error(error);
+    dispatch(setLoading(true));
+  }
+};
+
 export const changeTodosIsDone =
   (done: boolean, id: number) => async (dispatch: AppDispatch) => {
     try {
@@ -94,17 +105,6 @@ export const changeTodosText =
       console.error(error);
     }
   };
-
-export const fetchTodos = () => async (dispatch: AppDispatch) => {
-  try {
-    const { data } = await axios.get(apiUrl);
-    dispatch(getTodos(data));
-    dispatch(setLoading(false));
-  } catch (error) {
-    console.error(error);
-    dispatch(setLoading(true));
-  }
-};
 
 export const deleteTodos = (id: number) => async (dispatch: AppDispatch) => {
   try {

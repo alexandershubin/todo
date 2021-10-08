@@ -7,8 +7,8 @@ import { useDispatch } from "react-redux";
 
 interface itemProps extends Todo {
   index: number;
-  deleteTodosId: any;
-  changeDone: any;
+  changeDone(b: boolean, id: number): void;
+  deleteTodosId(onclick: number): void;
 }
 
 export const TodosItem = (props: itemProps) => {
@@ -40,7 +40,7 @@ export const TodosItem = (props: itemProps) => {
       <Input
         className="todos-input"
         type="checkbox"
-        htmlFor={id}
+        htmlFor={todoText}
         checked={done}
         changeInput={() => changeDone(!done, id)}
       />
@@ -52,7 +52,7 @@ export const TodosItem = (props: itemProps) => {
           <Input
             className="todos-change"
             type="text"
-            htmlFor={id}
+            htmlFor={todoText}
             value={todoText}
             checked={done}
             changeInput={createTodos}

@@ -4,8 +4,8 @@ import { Todo } from "../../../store/types";
 
 export interface Items {
   todos: Todo[];
-  changeDone: any;
-  deleteTodosId: any; // ?
+  changeDone(b: boolean, id: number): void;
+  deleteTodosId(onclick: number): void; // ?
 }
 
 export const TodoList = (props: Items) => {

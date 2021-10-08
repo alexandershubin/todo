@@ -3,15 +3,15 @@ import { Button } from "../../Ui/Button";
 
 interface PropsInput {
   todo: string;
-  addTodos: any;
-  createTodo: any;
+  createTodo(onclick: React.ChangeEvent<HTMLInputElement>): void;
+  addTodos(event: React.FormEvent<HTMLFormElement>): void;
 }
 
 export const TodoInput = (props: PropsInput) => {
   const { addTodos, createTodo, todo } = props;
 
   return (
-    <form className="form" onSubmit={addTodos}>
+    <form className="form" onSubmit={(event) => addTodos(event)}>
       <input
         className="form__input"
         value={todo}
