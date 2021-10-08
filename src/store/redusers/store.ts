@@ -40,6 +40,15 @@ export const todosSlice = createSlice({
       });
     },
 
+    changeTodoString: (state, action: PayloadAction<number>) => {
+      state.todos.map((todo) => {
+        if (todo.id === action.payload) {
+          return todo.text;
+        }
+        return todo;
+      });
+    },
+
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
@@ -47,8 +56,14 @@ export const todosSlice = createSlice({
 });
 
 export const selectTodos = (state: AppState) => state.todos.todos; // получаю массив из стора прокидываю его в компонент
-export const { setTodo, getTodos, removeTodo, setLoading, toggleTodo } =
-  todosSlice.actions;
+export const {
+  setTodo,
+  getTodos,
+  removeTodo,
+  setLoading,
+  toggleTodo,
+  changeTodoString,
+} = todosSlice.actions;
 
 export const saveTodo = (text: string) => async (dispatch: AppDispatch) => {
   try {
@@ -65,6 +80,16 @@ export const changeTodosIsDone =
     try {
       const response = await axios.patch(apiUrl + id, { done });
       dispatch(toggleTodo(response.data.id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+export const changeTodosText =
+  (text: string, id: number) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.patch(apiUrl + id, { text });
+      dispatch(changeTodoString(response.data.id));
     } catch (error) {
       console.error(error);
     }

@@ -6,6 +6,7 @@ import "./style/style.scss";
 
 function App() {
   const todos = useSelector(selectTodos);
+
   return (
     <div className="App">
       <Todos todos={todos} />
