@@ -4,6 +4,7 @@ export interface DataTodos {
 }
 
 export interface Todo {
+  index: number;
   id: number;
   text: string;
   done: boolean;

@@ -95,3 +95,18 @@
 .form-change {
   width: 100%;
 }
+
+.todos-btn {
+  max-width: 600px;
+  width: 100%;
+
+  .btn {
+    background: none;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  &__ready {
+    margin: 0 10px;
+  }
+}
