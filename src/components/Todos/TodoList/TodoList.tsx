@@ -1,5 +1,5 @@
 import { TodosItem } from "./TodosItem/TodosItem";
-import React, { DataHTMLAttributes, useState } from "react";
+import React, { useState } from "react";
 import { Todo } from "../../../store/types";
 import { Button } from "../../Ui/Button";
 
@@ -10,9 +10,8 @@ export interface Items {
 }
 
 export const TodoList = (props: Items) => {
-  const { deleteTodosId, changeDone } = props;
+  const { todos, deleteTodosId, changeDone } = props;
   const [filter, setFilter] = useState("");
-  const todos = [...props.todos];
 
   const sortTodoList = () => {
     switch (filter) {
@@ -21,7 +20,7 @@ export const TodoList = (props: Items) => {
       case "completed":
         return todos.filter((todo) => todo.done);
       case "all":
-        return todos.slice(0, todos.length);
+        return todos;
       default:
         return todos;
     }
